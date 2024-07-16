@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html ng-app="employeeApp", lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Management System</title>
+    <link rel="stylesheet" href="empstyle.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body ng-controller="EmployeeController">
+    <header>
+        <h1>Employee Management System</h1>
+    </header>
+
+    <div class="password-section">
+        <label>Password:</label>
+        <input type="password" ng-model="password">
+        <button class="btn-check" ng-click="checkPassword()">Submit</button>
+    </div>
+
+    <button class="btn-add" ng-click="showAddEmployee()" ng-disabled="!isAuthenticated">Add New Employee</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Department</th>
+                <th>Joining Year</th>
+                <th>Work Experience</th>
+                <th>Attendance</th>
+                <th>Email</th>
+                <th>Telephone</th>
+                <th>Cabin Number</th>
+                <th>Room Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="employee in employees">
+                <td><a href="#" ng-click="viewEmployee(employee)">{{employee.name}}</a></td>
+                <td>{{employee.position}}</td>
+                <td>{{employee.department}}</td>
+                <td>{{employee.joiningYear}}</td>
+                <td>{{employee.workExperience}}</td>
+                <td>{{employee.attendance}}</td>
+                <td>{{employee.email}}</td>
+                <td>{{employee.telephone}}</td>
+                <td>{{employee.cabinNumber}}</td>
+                <td>{{employee.roomNumber}}</td>
+                <td><button class="btn-delete" ng-click="deleteEmployee(employee)" ng-disabled="!isAuthenticated">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="modal" ng-show="showModal">
+        <div class="modal-content">
+            <span class="close" ng-click="closeModal()">&times;</span>
+            <h2>{{modalTitle}}</h2>
+            <form ng-submit="saveEmployee()">
+                <label>Name:</label>
+                <input type="text" ng-model="selectedEmployee.name" required>
+                <label>Position:</label>
+                <input type="text" ng-model="selectedEmployee.position" required>
+                <label>Department:</label>
+                <input type="text" ng-model="selectedEmployee.department" required>
+                <label>Joining Year:</label>
+                <input type="number" ng-model="selectedEmployee.joiningYear" required>
+                <label>Work Experience (years):</label>
+                <input type="number" ng-model="selectedEmployee.workExperience" required>
+                <label>Attendance (%):</label>
+                <input type="number" ng-model="selectedEmployee.attendance" required>
+                <label>Email:</label>
+                <input type="email" ng-model="selectedEmployee.email" required>
+                <label>Telephone:</label>
+                <input type="tel" ng-model="selectedEmployee.telephone" required>
+                <label>Cabin Number:</label>
+                <input type="text" ng-model="selectedEmployee.cabinNumber" required>
+                <label>Room Number:</label>
+                <input type="text" ng-model="selectedEmployee.roomNumber" required>
+                <button type="submit" ng-disabled="!isAuthenticated">{{modalButton}}</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
